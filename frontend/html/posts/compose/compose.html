@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Пишем — {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="content compose">
+        <!-- {% if not me.telegram_id %} -->
+            <div class="content-header">Что пишем?</div>
+
+            <div class="block compose-types">
+                <a href="{% url "compose_type" "post" %}" class="compose-type">
+                    <span class="compose-type-icon">📝</span>
+                    <span class="compose-type-name">Пост</span>
+                </a>
+                <a href="{% url "compose_type" "event" %}" class="compose-type">
+                    <span class="compose-type-icon">📅</span>
+                    <span class="compose-type-name">Событие</span>
+                </a>
+                <a href="{% url "compose_type" "guide" %}" class="compose-type">
+                    <span class="compose-type-icon">🗺</span>
+                    <span class="compose-type-name">Путеводитель</span>
+                </a>
+            </div>
+            
+        {% endif %}
+
+        <div class="compose-posts-header" id="compose-drafts">
+            <h2>Черновики 🙇‍♂️ </h2>
+            {% if drafts %}
+                {% for draft in drafts %}
+                    {% include "posts/items/items.html" with post=draft %}
+                {% endfor %}
+            {% else %}
+                <div class="compose-drafts-none">Нет сохраненных черновиков</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
